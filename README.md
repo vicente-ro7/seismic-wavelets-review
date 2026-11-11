@@ -74,5 +74,4 @@ permite abrir el resumen directamente.
   Incluyen casos sintéticos, invariantes de transformadas y peticiones FDSN simuladas.
 
 Esta edición presenta el núcleo, las pruebas y un caso real ejecutable.
-La demo evalúa desfases respecto a una P manual en una grabación archivada;
-no demuestra desempeño general ni valida un servicio de alerta temprana.
+La demo evalúa desfases respecto a una P manual en una grabación archivada.
