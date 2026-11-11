@@ -75,3 +75,9 @@ permite abrir el resumen directamente.
 
 Esta edición presenta el núcleo, las pruebas y un caso real ejecutable.
 La demo evalúa desfases respecto a una P manual en una grabación archivada.
+
+## Licencia
+
+El código propio del proyecto se distribuye bajo la [licencia MIT](LICENSE).
+MIT no cubre los datos de Mugello ni otros materiales de terceros. Consulta
+la [procedencia, atribución y condiciones de los datos de INGV](data/mugello/README.md).
