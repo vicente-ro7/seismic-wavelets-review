@@ -1,0 +1,65 @@
+{
+  "event_id": "smi:webservices.ingv.it/fdsnws/event/1/query?eventId=23558121",
+  "network_doi": "10.13127/SD/X0FXNH7QFY",
+  "waveform_query": {
+    "url": "https://webservices.ingv.it/fdsnws/dataselect/1/query",
+    "params": {
+      "network": "IV",
+      "station": "FNVD",
+      "location": "--",
+      "channel": "HHZ",
+      "starttime": "2019-12-09T03:36:18.940000Z",
+      "endtime": "2019-12-09T03:37:48.940000Z"
+    },
+    "kind": "waveform"
+  },
+  "waveform_request": {
+    "path": "data/mugello/original.mseed",
+    "sha256": "e8517b12e8917d4cb663d0d9df143a252fd280dc9b1cfd6dede81847b1f2c8d3",
+    "bytes": 26112
+  },
+  "derived_artifact": {
+    "path": "data/mugello/trimmed.mseed",
+    "sha256": "5440b04553d1f5f1cd7fd141fd47362b4e98b7122895cea22ae75c390ca90783",
+    "bytes": 25600
+  },
+  "arrival_references": [
+    {
+      "phase": "P",
+      "pick_time_utc": "2019-12-09T03:37:08.950000Z",
+      "source": "https://webservices.ingv.it/fdsnws/event/1/query",
+      "evaluation_mode": "manual"
+    },
+    {
+      "phase": "S",
+      "pick_time_utc": "2019-12-09T03:37:12.500000Z",
+      "source": "https://webservices.ingv.it/fdsnws/event/1/query",
+      "evaluation_mode": "manual"
+    }
+  ],
+  "trim": {
+    "operation": "copy_then_trim",
+    "pad": false,
+    "nearest_sample": false,
+    "interpolation": false,
+    "resampling": false,
+    "filtering": false,
+    "instrument_response_correction": false,
+    "requested_starttime_utc": "2019-12-09T03:36:18.940000Z",
+    "requested_endtime_utc": "2019-12-09T03:37:48.940000Z",
+    "actual_trace_times": [
+      [
+        "IV.FNVD..HHZ",
+        "2019-12-09T03:36:18.940200Z",
+        "2019-12-09T03:37:48.930200Z",
+        100.0,
+        9000
+      ]
+    ]
+  },
+  "thresholds": {
+    "STA/LTA": 1.6934249045802001,
+    "STFT": 2.4649338260182403,
+    "DWT": 1.9381852614908082
+  }
+}

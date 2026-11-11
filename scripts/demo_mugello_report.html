@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mugello · Detección sísmica</title>
+<style>
+:root { color-scheme: light; --ink:#102a43; --muted:#486581; --line:#ccdce6; --paper:#edf4f7; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--paper); color:var(--ink); font:17px/1.5 system-ui,sans-serif; }
+main { max-width:1380px; margin:auto; padding:26px clamp(16px,4vw,58px) 44px; }
+header { background:#103449; color:white; padding:26px 30px; border-radius:18px; }
+.kicker { letter-spacing:.12em; text-transform:uppercase; font-weight:750; font-size:.76rem; }
+header .kicker { color:#99dcd5; }
+h1,h2,h3,p { margin:0; }
+h1 { font-size:clamp(2rem,4vw,3.5rem); line-height:1.09; margin:5px 0 9px; }
+h2 { font-size:1.4rem; margin-bottom:8px; }
+h3 { font-size:1rem; }
+header p { color:#d5edf1; }
+nav { display:flex; flex-wrap:wrap; gap:9px 22px; margin-top:12px; }
+nav a { color:white; text-underline-offset:4px; }
+.grid { display:grid; grid-template-columns:minmax(0,1.68fr) minmax(0,1fr); gap:16px; align-items:start; }
+.card { margin-top:16px; background:white; border:1px solid var(--line); border-radius:15px; padding:18px; }
+figure { margin:0; }
+img { display:block; width:100%; height:auto; }
+figcaption,.note { color:var(--muted); font-size:.9rem; }
+figcaption p + p { margin-top:6px; }
+.table-wrap { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums; font-size:.94rem; }
+th,td { padding:8px 6px; border-bottom:1px solid var(--line); text-align:right; }
+th:first-child { text-align:left; }
+.metrics tr:last-child > * { border-bottom:0; }
+.note { margin-top:12px; }
+ol { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:0; padding:0; list-style:none; }
+li { border-left:3px solid #16736d; padding:8px 12px; background:#f4f8fa; }
+li p { margin-top:4px; }
+code { overflow-wrap:anywhere; }
+footer { margin-top:16px; color:var(--muted); }
+@media (max-width:940px) { .grid { grid-template-columns:1fr; } }
+@media (max-width:570px) { ol { grid-template-columns:1fr; } header { padding:20px; } }
+</style>
+</head>
+<body>
+<main>
+<header>
+<div class="kicker">DSP · Comparación de detectores · Registro archivado</div>
+<h1>Mugello: de la señal al disparo</h1>
+<p>9 de diciembre de 2019 · INGV · <strong>$seed</strong> · $rate Hz · $signal_seconds s preparados</p>
+<nav aria-label="Secciones"><a href="#resultado">Resultado</a><a href="#proceso">Cómo se calculó</a><a href="#alcance">Qué podemos concluir</a></nav>
+</header>
+<div class="grid" id="resultado">
+<figure class="card">
+<h2>Cómo leer la señal y los disparos</h2>
+<img src="data:image/png;base64,$image" alt="Dos paneles: forma de onda alrededor de P y tres indicadores con sus cruces del umbral.">
+<figcaption>
+<p><strong>Tiempo (s):</strong> 0 es la llegada P marcada a mano; − es antes y + es después. La otra línea vertical marca S.</p>
+<p><strong>A · Amplitud:</strong> cuentas digitales. <strong>B · Curvas:</strong> azul continua = STA/LTA, naranja de trazos = STFT, morada de trazo y punto = DWT Haar. Cada curva se divide por su propio umbral: <strong>1</strong> es el nivel de disparo. En los valores altos, 10 → 100 significa diez veces más. Los puntos señalan el instante del disparo respecto a P asociado a P.</p>
+</figcaption>
+</figure>
+<section class="card">
+<h2>Resultado de esta ejecución</h2>
+<p>Llegada P manual: <strong>$pick_p</strong> (UTC)<br>Llegada S manual: <strong>$pick_s</strong> (UTC)</p>
+<div class="table-wrap">
+<table class="metrics">
+<thead><tr><th scope="col">Método</th><th scope="col">Disparo − P<br>(s)</th><th scope="col">Mediana<br>(ms)</th><th scope="col">P95<br>(ms)</th></tr></thead>
+<tbody>$table_rows</tbody>
+</table>
+</div>
+<p class="note">Un desfase positivo significa que el detector disparó después de P. La mediana es el tiempo típico; cerca del 95 % de las mediciones quedó en el P95 o por debajo. Se midieron $repetitions lotes tras $warmups calentamientos, sin incluir lectura, preparación ni dibujo.</p>
+</section>
+</div>
+<section class="card" id="proceso">
+<h2>Cómo se calculó</h2>
+<ol>
+<li><h3>01 · Verificar y preparar</h3><p>Se verifican los hashes del MiniSEED original y del recorte, y se comprueba que sus muestras coinciden. Se resta la media del primer segundo y se descarta ese segundo.</p></li>
+<li><h3>02 · Medir potencia por ventana</h3><p>Ventanas de $width s cada $hop s. STA/LTA mide potencia total; STFT suma potencia espectral con Hann en [$band_low, $band_high) Hz; DWT Haar suma los detalles D4–D2, de banda nominal comparable.</p></li>
+<li><h3>03 · Detectar con información disponible</h3><p>La potencia reciente se divide por el promedio de $background ventanas anteriores sin solapamiento con la actual. El disparo se fecha al cerrar la ventana, en el cruce ascendente, con $holdoff s de espera entre disparos aceptados.</p></li>
+<li><h3>04 · Comparar con la referencia</h3><p>Los umbrales del piloto se reutilizan. Se toma el primer disparo entre P − $early s y P + $late s, antes de S. Las marcas manuales se usan para evaluar la asociación.</p></li>
+</ol>
+<p class="note">Umbrales originales: $thresholds. Las curvas muestran el cociente respecto al umbral propio, no potencias físicas comparables.</p>
+</section>
+<section class="card" id="alcance">
+<h2>Qué podemos concluir</h2>
+<p>$interpretation Los desfases son propios de esta traza y de estos umbrales. La demo recalcula un registro archivado durante la exposición; no mide latencia de un servicio continuo ni valida una alerta temprana.</p>
+</section>
+<footer>INGV · Red IV · DOI 10.13127/SD/X0FXNH7QFY<br>SHA-256 del recorte MiniSEED: <code>$waveform_hash</code></footer>
+</main>
+</body>
+</html>

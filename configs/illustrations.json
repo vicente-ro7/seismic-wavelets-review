@@ -1,0 +1,77 @@
+{
+  "corrected_morlet": {
+    "omega": 6,
+    "domain_u": [
+      -12,
+      12
+    ],
+    "domain_samples": 24001,
+    "plot_domain_seconds": [
+      -6,
+      6
+    ],
+    "plot_samples": 24001,
+    "scales_seconds": [
+      0.25,
+      0.5,
+      1
+    ],
+    "translations_seconds": [
+      -1.5,
+      0,
+      1.5
+    ],
+    "translation_scale_seconds": 0.5,
+    "norm_tolerance": 1e-08,
+    "mean_tolerance": 1e-10
+  },
+  "cwt": {
+    "wavelet": "cmor1.5-1.0",
+    "frequency_grid": "geomspace",
+    "frequency_hz": [
+      4,
+      40
+    ],
+    "number_of_frequencies": 96,
+    "precision": 16,
+    "method": "fft",
+    "guard_extra_samples": 2,
+    "kernel_fft_samples": 32768,
+    "near_nyquist_fraction": 0.9,
+    "maximum_near_nyquist_power_fraction": 0.0001,
+    "maximum_peak_relative_error": 0.02
+  },
+  "dwt": {
+    "wavelet": "db4",
+    "level": 5,
+    "mode": "periodization",
+    "relative_error_tolerance": 1e-10
+  },
+  "shared_synthetic": {
+    "fs_hz": 200,
+    "nominal_duration_s": 8,
+    "n_samples": 1600,
+    "noise": null,
+    "packets": [
+      {
+        "amplitude": 1,
+        "frequency_hz": 8,
+        "support_s": [
+          1,
+          2.5
+        ]
+      },
+      {
+        "amplitude": 0.8,
+        "frequency_hz": 24,
+        "support_s": [
+          4,
+          4.75
+        ]
+      }
+    ],
+    "envelope": "sin(pi*(t-start)/duration)**2 on start<=t<end; zero elsewhere",
+    "carrier": "cos(2*pi*f*(t-start))",
+    "purpose": "didactic; not approved experimental parameters"
+  }
+}

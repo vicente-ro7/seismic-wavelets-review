@@ -1,0 +1,52 @@
+{
+  "purpose": "optional_fdsn_acquisition_example",
+  "provider": {
+    "station_url": "https://webservices.ingv.it",
+    "waveform_url": "https://webservices.ingv.it",
+    "event_url": "https://webservices.ingv.it",
+    "allow_http": false
+  },
+  "catalog": {
+    "mode": "fdsn",
+    "query": {
+      "eventid": "23558121",
+      "includearrivals": "true"
+    }
+  },
+  "selection": {
+    "network": "IV",
+    "stations": [
+      "FNVD"
+    ],
+    "location": "--",
+    "channel": "HHZ"
+  },
+  "event_window": {
+    "seconds_before_origin": 45,
+    "seconds_after_origin": 45
+  },
+  "event_roles": {
+    "smi:webservices.ingv.it/fdsnws/event/1/query?eventId=23558121": "pilot"
+  },
+  "limits": {
+    "max_events": 1,
+    "max_windows": 1,
+    "max_stations": 1,
+    "max_cases": 1,
+    "max_requests": 5,
+    "max_request_bytes": 4194304,
+    "max_total_bytes": 8388608,
+    "max_samples_per_case": 100000,
+    "max_duration_seconds": 90,
+    "timeout_seconds": 20,
+    "retries": 0,
+    "batch_size": 1,
+    "pause_between_batches_seconds": 0,
+    "max_figures": 0
+  },
+  "allow_channel_metadata_fallback": false,
+  "prepare_requested_window": true,
+  "quality": {
+    "require_response": true
+  }
+}

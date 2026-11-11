@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=80"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "seismic-wavelets-review"
+version = "0.1.0"
+description = "Comparación reproducible de detectores y representaciones de transitorios sísmicos"
+readme = "README.md"
+requires-python = ">=3.14,<3.15"
+authors = [
+    {name = "Vicente Rojas"},
+    {name = "Yimmer Sanabria"},
+    {name = "Juan David Roa"},
+]
+dependencies = ["numpy", "scipy", "matplotlib", "pandas", "PyWavelets", "obspy", "requests"]
+
+[project.optional-dependencies]
+dev = ["jupyterlab", "ipykernel", "pytest", "ruff"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+target-version = "py314"
+line-length = 100
+extend-exclude = ["examples", "results"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]

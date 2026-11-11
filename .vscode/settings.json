@@ -1,0 +1,39 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
+  "python-envs.defaultEnvManager": "ms-python.python:venv",
+  "python-envs.workspaceSearchPaths": [
+    "./.venv"
+  ],
+  "python-envs.pythonProjects": [
+    {
+      "path": ".",
+      "envManager": "ms-python.python:venv",
+      "packageManager": "ms-python.python:pip"
+    }
+  ],
+  "python.terminal.activateEnvironment": true,
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestArgs": [
+    "tests"
+  ],
+  "python.analysis.extraPaths": [
+    "./src",
+    "./scripts"
+  ],
+  "jupyter.notebookFileRoot": "${workspaceFolder}",
+  "terminal.integrated.cwd": "${workspaceFolder}",
+  "terminal.integrated.env.linux": {
+    "MPLCONFIGDIR": "${workspaceFolder}/.cache/matplotlib",
+    "XDG_CACHE_HOME": "${workspaceFolder}/.cache",
+    "IPYTHONDIR": "${workspaceFolder}/.runtime/ipython"
+  },
+  "files.exclude": {
+    "**/__pycache__": true,
+    ".cache": true,
+    ".runtime": true,
+    ".pytest_cache": true,
+    ".ruff_cache": true,
+    "**/*.egg-info": true
+  }
+}

@@ -1,0 +1,9 @@
+# Preserve exact bytes, including documented SHA-256 hashes, across machines.
+* -text
+*.pdf binary
+*.mseed binary
+*.npz binary
+*.png binary
+*.jpg binary
+*.gif binary
+*.zip binary
